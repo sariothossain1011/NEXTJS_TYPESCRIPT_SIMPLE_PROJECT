@@ -25,7 +25,16 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
 
 
 
-    const [todos, setTodos] = useState<Todo[]>([]);
+    const [todos, setTodos] = useState<Todo[]>(() => {
+        try {
+            const newTodos = localStorage.getItem("todos") || "[]";
+            return JSON.parse(newTodos) as Todo[];
+        } catch (error) {
+            return [];
+        }
+
+
+    });
 
     const handleAddTodos = (task: string) => {
         setTodos((prev) => {
@@ -38,6 +47,7 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
             ...prev
             ]
 
+            localStorage.setItem("todos", JSON.stringify(todos));
             return newTodos;
         })
     }
@@ -51,7 +61,7 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
                 }
                 return task;
             })
-
+            localStorage.setItem("todos", JSON.stringify(todos));
             return newTodos;
 
         })
@@ -64,6 +74,7 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
             return newTodos;
 
         })
+        localStorage.setItem("todos", JSON.stringify(todos));
 
     }
 
