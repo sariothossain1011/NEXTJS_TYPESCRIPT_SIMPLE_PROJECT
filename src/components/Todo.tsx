@@ -8,7 +8,7 @@ const Todo = () => {
     console.log(todos)
     let filterTodos = todos;
     const localStorageTodo = localStorage.getItem("todos");
-    console.log("localStorageTodo",localStorageTodo)
+    console.log("localStorageTodo", localStorageTodo)
 
     const searchParams = useSearchParams();
 
@@ -24,13 +24,13 @@ const Todo = () => {
                 {
                     filterTodos.map((todo) => {
                         return (
-                            <li key={todo.id}>
-                                <input type='checkbox' name='' id={`todo-${todo.id}`} checked={todo.completed} onChange={() => toggleTodoAsCompleted(todo.id)} />
-
-                                <label htmlFor={`todo-${todo.id}`}>{todo.task}</label>
+                            <li key={todo.id} className=' max-w-full shadow-md rounded-md flex bg-dark-light-900 justify-between text-center py-2 my-4 px-10'>
+                                    <input className=' align-middle ' type='checkbox' name='' id={`todo-${todo.id}`} checked={todo.completed} onChange={() => toggleTodoAsCompleted(todo.id)} />
+                                    <label className=' text-lg font-spaceGrotesk' htmlFor={`todo-${todo.id}`}>{todo.task}</label>
+                   
                                 {
                                     todo.completed && (
-                                        <button type='button' onClick={() => handleTodoDelete(todo.id)}>Delete</button>
+                                        <button className=' bg-red-600 text-white  px-3  font-serif rounded-sm' type='button' onClick={() => handleTodoDelete(todo.id)}>Delete</button>
                                     )
                                 }
                             </li>
