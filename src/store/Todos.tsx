@@ -13,15 +13,15 @@ export type Todo = {
 export type todosContext = {
     todos: Todo[];
     handleAddTodos: (task: string) => void; // call signature
-    toggleTodoAsCompleted: (id:string)=>void ;
-    handleTodoDelete:(id:string)=>void ;
-    
+    toggleTodoAsCompleted: (id: string) => void;
+    handleTodoDelete: (id: string) => void;
+
 
 }
 
-const todosContext = createContext<todosContext | null >(null); // union oparator
+const todosContext = createContext<todosContext | null>(null); // union oparator
 
-export const TodosProvider = ({children}: { children: ReactNode }) => {
+export const TodosProvider = ({ children }: { children: ReactNode }) => {
 
 
 
@@ -43,26 +43,32 @@ export const TodosProvider = ({children}: { children: ReactNode }) => {
     }
 
     // if the task is completed
-    const toggleTodoAsCompleted =(id:string)=>{
-        setTodos((prev)=>{
-            const newTodos = prev.map((task)=>{
-                if(task.id === id){
-                    return {...task,completed:!task.completed}
+    const toggleTodoAsCompleted = (id: string) => {
+        setTodos((prev) => {
+            const newTodos = prev.map((task) => {
+                if (task.id === id) {
+                    return { ...task, completed: !task.completed }
                 }
-                return task ;
+                return task;
             })
 
-            return newTodos ;
-            
+            return newTodos;
+
         })
 
     }
-    const handleTodoDelete =(id:string)=>{
+    // if the task is deleted
+    const handleTodoDelete = (id: string) => {
+        setTodos((prev) => {
+            const newTodos = prev.filter((task) => task.id !== id);
+            return newTodos;
+
+        })
 
     }
 
     return (
-        <todosContext.Provider value={{ todos, handleAddTodos,toggleTodoAsCompleted,handleTodoDelete }}>
+        <todosContext.Provider value={{ todos, handleAddTodos, toggleTodoAsCompleted, handleTodoDelete }}>
             {children}
         </todosContext.Provider>
     )
@@ -73,9 +79,9 @@ export const TodosProvider = ({children}: { children: ReactNode }) => {
 
 // context api 
 
-export function useTodots(){
+export function useTodots() {
     const todosContextValue = useContext(todosContext);
-    if(!todosContextValue){
+    if (!todosContextValue) {
         throw new Error("UseTodos used outsite of provider")
     }
     return todosContextValue;
