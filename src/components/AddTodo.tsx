@@ -15,8 +15,8 @@ const AddTodo = () => {
     return (
         <Fragment>
             <form onSubmit={handleOnFormSubmit} className=' flex justify-between gap-4 py-4'>
-                <input type='text' className='w-full text-center bg-white text-dark-dark-200 font-serif shadow-md' value={todo} onChange={(e) => setTodo(e.target.value)} placeholder='Write your Todo ' />
-                <button type='submit' className=' font-bold text-lg text-white bg-blue-600 px-6 py-1 font-sans shadow-sm'>Add</button>
+                <input type='text' className='w-full text-center bg-white text-dark-dark-200 font-serif shadow-sm shadow-dark-light-800' value={todo} onChange={(e) => setTodo(e.target.value)} placeholder='Write your Todo ' />
+                <button type='submit' className=' animate-in text-md font-normal text-white bg-blue-600 px-6 py-1 font-sans shadow-sm'>Add</button>
             </form>
 
         </Fragment>
